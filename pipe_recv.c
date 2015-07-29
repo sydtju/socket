@@ -25,15 +25,14 @@ int main(int argc,char *argv[]){
 	else{
 		fprintf(stdout,"create fifo is success! \n");
 	}
-	infile=open("myfifo",O_WRONLY);
+	infile=open("myfifo",O_RDONLY);
 	if(infile<0) {fprintf(stdout,"open is error!\n");exit(-1);}
-	printf("input message:");//居然打印不出来  神奇！！
-	while((count=read(0,buf,BUF_SIZE))>0)
+	while(count=read(infile,buf,BUF_SIZE)>0)
 	{
-		write(infile,buf,count);
-		printf("input message:");
+		fprintf(stdout,"recvfrom fifo:%s\n",buf);
 		memset(buf,0,BUF_SIZE);
 	}
 	close(infile);
 	return 0;
+
 }
